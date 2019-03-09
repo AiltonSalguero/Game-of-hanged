@@ -31,6 +31,22 @@ IMAGES = ['''
     |   |
     O   |
     |   |
+   /    |
+        |
+        =========''','''
+
+    +---+
+    |   |
+    O   |
+    |   |
+   /|   |
+        |
+        =========''','''
+
+    +---+
+    |   |
+    O   |
+    |   |
    /|\  |
         |
         =========''','''
@@ -49,8 +65,17 @@ IMAGES = ['''
     |   |
    /|\  |
     |   |
-   /|\  =========''']
+   /    =========''', '''
 
+    +---+
+    |   |
+    O   |
+    |   |
+   /|\  |
+    |   |
+   / \  =========''']
+
+lifes = 0
 
 def ran():
     num = random.randint(0,len(WORK)-1)
@@ -65,12 +90,64 @@ def ran():
     else: 
         WORKEXIST.append(num)
         return num
-       
-if __name__ == "__main__":
-    selectWork = WORK[ran()]
 
-    # for target_list in expression_list:  
-    print(len(selectWork))
-    
+def newWork():
+    selectWork = WORK[ran()]
+    showBoxWork = "["
+    line = "* --- " * len(selectWork)
+
+    for i in selectWork:  
+        showBoxWork += "'_', "
+
+    showBoxWork += "]"
+    line += "*"
+
+    print(IMAGES[lifes])
+    print("\n")
+    print(showBoxWork)
+    print(line)
+    insertWork(selectWork)
+   
+
+def insertWork(selectWork):
+     while True:
+        inputText = input("Choose a letter: ")
+        if len(inputText) < 2 and len(inputText) > 0:
+            verific(inputText, selectWork)
+            break
+        else:
+            print("The entry is incorrect. Please add only one letter.")
+
+def verific(text, selectWork):
+    global lifes
+    while True:
+        workPosition = []
+        count = 0
+
+        for i in selectWork:
+            if(i == text):
+                workPosition.append(count)
+            count += 1
+
+        if (lifes+1) >= (len(IMAGES)-1):
+            print("GAME OVER")
+            break
+        elif len(workPosition) < 1:
+           lifes += 1
+           print(IMAGES[lifes])
+           insertWork(selectWork)
+           break
+        else:
+            print("sigue")
+            break
+
+
+def revealLetters(positions, char):
+    print("paso")
+    pass
+
+
+if __name__ == "__main__":
+    newWork()
 
 
